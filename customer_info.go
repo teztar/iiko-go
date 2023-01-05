@@ -11,11 +11,11 @@ const (
 )
 
 type CustomerInfoRequest struct {
-	Phone          string           `json:"phone,omitempty"`
-	CardTrack      string           `json:"cardTrack,omitempty"`
-	CardNumber     string           `json:"cardNumber,omitempty"`
-	Email          string           `json:"email,omitempty"`
-	Id             string           `json:"id,omitempty"`
+	Phone          *string          `json:"phone,omitempty"`
+	CardTrack      *string          `json:"cardTrack,omitempty"`
+	CardNumber     *string          `json:"cardNumber,omitempty"`
+	Email          *string          `json:"email,omitempty"`
+	Id             *string          `json:"id,omitempty"`
 	Type           CustomerInfoType `json:"type"`
 	OrganizationId string           `json:"organizationId"`
 }
@@ -38,30 +38,30 @@ const (
 
 type CustomerInfoResponse struct {
 	Id                            string          `json:"id"`
-	ReferrerId                    string          `json:"referrerId"`
-	Name                          string          `json:"name"`
-	Surname                       string          `json:"surname"`
-	MiddleName                    string          `json:"middleName"`
-	Comment                       string          `json:"comment"`
-	Phone                         string          `json:"phone"`
-	CultureName                   string          `json:"cultureName"`
-	Birthday                      string          `json:"birthday"`
-	Email                         string          `json:"email"`
+	ReferrerId                    *string         `json:"referrerId"`
+	Name                          *string         `json:"name"`
+	Surname                       *string         `json:"surname"`
+	MiddleName                    *string         `json:"middleName"`
+	Comment                       *string         `json:"comment"`
+	Phone                         *string         `json:"phone"`
+	CultureName                   *string         `json:"cultureName"`
+	Birthday                      *string         `json:"birthday"`
+	Email                         *string         `json:"email"`
 	Sex                           SexType         `json:"sex"`
 	ConsentStatus                 ConsentStatus   `json:"consentStatus"`
 	Anonymized                    bool            `json:"anonymized"`
 	Cards                         []Card          `json:"cards"`
 	Categories                    []Category      `json:"categories"`
 	WalletBalances                []WalletBalance `json:"walletBalances"`
-	UserData                      string          `json:"userData"`
-	ShouldReceivePromoActionsInfo bool            `json:"shouldReceivePromoActionsInfo"`
-	ShouldReceiveLoyaltyInfo      bool            `json:"shouldReceiveLoyaltyInfo"`
-	ShouldReceiveOrderStatusInfo  bool            `json:"shouldReceiveOrderStatusInfo"`
-	PersonalDataConsentFrom       string          `json:"personalDataConsentFrom"`
-	PersonalDataConsentTo         string          `json:"personalDataConsentTo"`
-	PersonalDataProcessingFrom    string          `json:"personalDataProcessingFrom"`
-	PersonalDataProcessingTo      string          `json:"personalDataProcessingTo"`
-	IsDeleted                     bool            `json:"isDeleted"`
+	UserData                      *string         `json:"userData"`
+	ShouldReceivePromoActionsInfo *bool           `json:"shouldReceivePromoActionsInfo"`
+	ShouldReceiveLoyaltyInfo      *bool           `json:"shouldReceiveLoyaltyInfo"`
+	ShouldReceiveOrderStatusInfo  *bool           `json:"shouldReceiveOrderStatusInfo"`
+	PersonalDataConsentFrom       *string         `json:"personalDataConsentFrom"`
+	PersonalDataConsentTo         *string         `json:"personalDataConsentTo"`
+	PersonalDataProcessingFrom    *string         `json:"personalDataProcessingFrom"`
+	PersonalDataProcessingTo      *string         `json:"personalDataProcessingTo"`
+	IsDeleted                     *bool           `json:"isDeleted"`
 }
 
 // CustomerInfo ...
