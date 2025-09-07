@@ -111,7 +111,7 @@ type ModifierItem struct {
 	// Nutrition per hundred grams (keeping as interface{} for flexibility)
 	NutritionPerHundredGrams interface{} `json:"nutritionPerHundredGrams"`
 	// Portion weight in grams
-	PortionWeightGrams int `json:"portionWeightGrams"`
+	PortionWeightGrams float64 `json:"portionWeightGrams"`
 	// Tags
 	Tags []Tag `json:"tags"`
 	// Item ID
@@ -153,7 +153,7 @@ type ItemSize struct {
 	// Is default size flag
 	IsDefault bool `json:"isDefault"`
 	// Portion weight in grams
-	PortionWeightGrams int `json:"portionWeightGrams"`
+	PortionWeightGrams float64 `json:"portionWeightGrams"`
 	// Size ID
 	SizeId uuid.UUID `json:"sizeId"`
 	// Nutrition per hundred grams (keeping as interface{} for flexibility)
