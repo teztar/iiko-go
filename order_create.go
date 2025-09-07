@@ -266,6 +266,8 @@ type ComboInformation struct {
 	ComboSourceID uuid.UUID `json:"comboSourceId"`
 	// Combo group ID to which item belongs.
 	ComboGroupID uuid.UUID `json:"comboGroupId"`
+	// Combo group name to which item belongs.
+	ComboGroupName *string `json:"comboGroupName"`
 }
 
 type Component struct {

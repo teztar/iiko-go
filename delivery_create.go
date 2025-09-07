@@ -19,37 +19,37 @@ type DeliveryOrder struct {
 	// Menu ID (nullable)
 	MenuId *string `json:"menuId"`
 	// Price category ID
-	PriceCategoryId string `json:"priceCategoryId"`
+	PriceCategoryId *string `json:"priceCategoryId"`
 	// Order ID
-	Id uuid.UUID `json:"id"`
+	Id *uuid.UUID `json:"id"`
 	// External number
-	ExternalNumber string `json:"externalNumber"`
+	ExternalNumber *string `json:"externalNumber"`
 	// Complete before time
-	CompleteBefore string `json:"completeBefore"`
+	CompleteBefore *string `json:"completeBefore"`
 	// Phone number
 	Phone string `json:"phone"`
 	// Phone extension
-	PhoneExtension string `json:"phoneExtension"`
+	PhoneExtension *string `json:"phoneExtension"`
 	// Order type ID
-	OrderTypeId uuid.UUID `json:"orderTypeId"`
+	OrderTypeId *uuid.UUID `json:"orderTypeId"`
 	// Order service type
-	OrderServiceType string `json:"orderServiceType"`
+	OrderServiceType *string `json:"orderServiceType"`
 	// Delivery point
-	DeliveryPoint DeliveryOrderPoint `json:"deliveryPoint"`
+	DeliveryPoint *DeliveryOrderPoint `json:"deliveryPoint"`
 	// Order comment
-	Comment string `json:"comment"`
+	Comment *string `json:"comment"`
 	// Customer information
-	Customer Customer `json:"customer"`
+	Customer *Customer `json:"customer"`
 	// Guests information
-	Guests Guests `json:"guests"`
+	Guests *Guests `json:"guests"`
 	// Marketing source ID
-	MarketingSourceId uuid.UUID `json:"marketingSourceId"`
+	MarketingSourceId *uuid.UUID `json:"marketingSourceId"`
 	// Operator ID
-	OperatorId uuid.UUID `json:"operatorId"`
+	OperatorId *uuid.UUID `json:"operatorId"`
 	// Delivery duration in minutes
-	DeliveryDuration int `json:"deliveryDuration"`
+	DeliveryDuration *int `json:"deliveryDuration"`
 	// Delivery zone
-	DeliveryZone string `json:"deliveryZone"`
+	DeliveryZone *string `json:"deliveryZone"`
 	// Order items
 	Items []DeliveryOrderItem `json:"items"`
 	// Order combos
@@ -59,13 +59,13 @@ type DeliveryOrder struct {
 	// Order tips
 	Tips []DeliveryOrderTip `json:"tips"`
 	// Source key
-	SourceKey string `json:"sourceKey"`
+	SourceKey *string `json:"sourceKey"`
 	// Discounts information
-	DiscountsInfo DeliveryDiscountsInfo `json:"discountsInfo"`
+	DiscountsInfo *DeliveryDiscountsInfo `json:"discountsInfo"`
 	// Loyalty information
-	LoyaltyInfo DeliveryLoyaltyInfo `json:"loyaltyInfo"`
+	LoyaltyInfo *DeliveryLoyaltyInfo `json:"loyaltyInfo"`
 	// Cheque additional information
-	ChequeAdditionalInfo DeliveryChequeAdditionalInfo `json:"chequeAdditionalInfo"`
+	ChequeAdditionalInfo *DeliveryChequeAdditionalInfo `json:"chequeAdditionalInfo"`
 	// External data
 	ExternalData []DeliveryExternalData `json:"externalData"`
 }
@@ -73,13 +73,13 @@ type DeliveryOrder struct {
 // DeliveryOrderPoint represents delivery point for order
 type DeliveryOrderPoint struct {
 	// Coordinates
-	Coordinates DeliveryCoordinates `json:"coordinates"`
+	Coordinates *DeliveryCoordinates `json:"coordinates"`
 	// Address
-	Address DeliveryAddress `json:"address"`
+	Address *DeliveryAddress `json:"address"`
 	// External cartography ID
-	ExternalCartographyId string `json:"externalCartographyId"`
+	ExternalCartographyId *string `json:"externalCartographyId"`
 	// Comment
-	Comment string `json:"comment"`
+	Comment *string `json:"comment"`
 }
 
 // DeliveryCoordinates represents geographical coordinates
@@ -94,20 +94,30 @@ type DeliveryCoordinates struct {
 type DeliveryAddress struct {
 	// Address type
 	Type string `json:"type"`
+	Line1 string `json:"line1"`
+	Flat *string `json:"flat"`
+	Entrance *string `json:"entrance"`
+	Floor *string `json:"floor"`
+	Doorphone *string `json:"doorphone"`
+	RegionID *string `json:"regionId"`
 }
 
 // DeliveryOrderItem represents an order item for delivery
 type DeliveryOrderItem struct {
+	ProductID string `json:"productId"`
+	Modifiers []*Modifier `json:"modifiers"`
+	Price float64 `json:"price"`
+	PositionID *string `json:"positionId"`
 	// Item type
 	Type string `json:"type"`
 	// Item amount
 	Amount int `json:"amount"`
 	// Product size ID
-	ProductSizeId uuid.UUID `json:"productSizeId"`
+	ProductSizeId *uuid.UUID `json:"productSizeId"`
 	// Combo information
-	ComboInformation ComboInformation `json:"comboInformation"`
+	ComboInformation *ComboInformation `json:"comboInformation"`
 	// Item comment
-	Comment string `json:"comment"`
+	Comment *string `json:"comment"`
 }
 
 // DeliveryOrderCombo represents order combo for delivery
