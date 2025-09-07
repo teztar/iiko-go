@@ -1,11 +1,13 @@
 package iiko
 
+import "github.com/google/uuid"
+
 // RestoreCustomersRequest represents the request structure for restoring customers
 type RestoreCustomersRequest struct {
 	// Array of customer IDs to restore
-	CustomerIds []string `json:"customerIds"`
+	CustomerIds []uuid.UUID `json:"customerIds"`
 	// Organization ID where the customers should be restored
-	OrganizationId string `json:"organizationId"`
+	OrganizationId uuid.UUID `json:"organizationId"`
 }
 
 // RestoreCustomersResponse represents the response structure for the restore customers operation
