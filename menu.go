@@ -37,13 +37,11 @@ type MenuByIdRequest struct {
 	// Price category ID
 	PriceCategoryId string `json:"priceCategoryId"`
 	// API version
-	Version int `json:"version"`
+	Version *int `json:"version"`
 	// Language code
-	Language string `json:"language"`
-	// Async mode flag
-	AsyncMode bool `json:"asyncMode"`
+	Language *string `json:"language"`
 	// Start revision number
-	StartRevision int `json:"startRevision"`
+	StartRevision *int `json:"startRevision"`
 }
 
 // MenuPrice represents price information for organization
