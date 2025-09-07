@@ -1,13 +1,11 @@
 package iiko
 
-import "github.com/google/uuid"
-
 // DeleteCustomersRequest represents the request structure for deleting customers
 type DeleteCustomersRequest struct {
 	// Array of customer IDs to delete
-	CustomerIds []uuid.UUID `json:"customerIds"`
+	CustomerIds []string `json:"customerIds"`
 	// Organization ID where the customers should be deleted
-	OrganizationId uuid.UUID `json:"organizationId"`
+	OrganizationId string `json:"organizationId"`
 }
 
 // DeleteCustomersResponse represents the response structure for the delete customers operation
