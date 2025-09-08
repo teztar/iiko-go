@@ -95,6 +95,9 @@ type DeliveryAddress struct {
 	// Address type
 	Type string `json:"type"`
 	Line1 string `json:"line1"`
+	Street string `json:"street"`
+	House string `json:"house"`
+	Building *string `json:"building"`
 	Flat *string `json:"flat"`
 	Entrance *string `json:"entrance"`
 	Floor *string `json:"floor"`
