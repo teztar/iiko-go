@@ -117,9 +117,9 @@ type DeliveryAddress struct {
 // DeliveryStreet represents street information
 type DeliveryStreet struct {
 	// ID
-	ID uuid.UUID `json:"id"`
+	ID *uuid.UUID `json:"id"`
 	// Name
-	Name string `json:"name"`
+	Name *string `json:"name"`
 	// City
 	City *string `json:"city"`
 }
