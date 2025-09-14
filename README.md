@@ -1,64 +1,71 @@
 _Library is still under construction. Most of the methods are not implemented yet._
+
 1. [How to use](#how-to-use)
 2. [How to contriubte](#how-to-contribute)
 3. [Feature matrix](#feature-matrix)
+
 #### How to use
+
 ```golang
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-	"time"
+ "fmt"
+ "log"
+ "net/http"
+ "time"
 
-	"github.com/wollzy/iiko-go"
+ "github.com/wollzy/iiko-go"
 )
 
 func main() {
-	client, err := iiko.NewClient("API_LOGIN")
-	if err != nil {
-		log.Fatalln(err)
-	}
+ client, err := iiko.NewClient("API_LOGIN")
+ if err != nil {
+  log.Fatalln(err)
+ }
 
-	// You can set a custom http.Client for making iikoCloud API request.
-	// By default, http.DefaultClient is used.
-	client.SetHTTPClient(&http.Client{})
+ // You can set a custom http.Client for making iikoCloud API request.
+ // By default, http.DefaultClient is used.
+ client.SetHTTPClient(&http.Client{})
 
-	// You can set a custom timeout for making iikoCloud API request.
-	// By default, 15 seconds is used.
-	client.SetTimeout(5 * time.Second)
+ // You can set a custom timeout for making iikoCloud API request.
+ // By default, 15 seconds is used.
+ client.SetTimeout(5 * time.Second)
 
-	// You can set a custom refreshTokenInterval for iiko.Client.
-	// refreshTokenInterval is the interval at which the iiko.Client wil try to get a new API token.
-	// by default, 45 minutes is used.
-	client.SetRefreshTokenInterval(30 * time.Minute)
+ // You can set a custom refreshTokenInterval for iiko.Client.
+ // refreshTokenInterval is the interval at which the iiko.Client wil try to get a new API token.
+ // by default, 45 minutes is used.
+ client.SetRefreshTokenInterval(30 * time.Minute)
 
-	// make request to iikoCloud API: /api/1/organizations
-	res, err := client.Organizations(&iiko.OrganizationsRequest{ReturnAdditionalInfo: true})
-	if err != nil {
-		// Check if the error is IIKO API Error.
-		if iikoError, ok := err.(*iiko.ErrorResponse); ok {
-			fmt.Println(iikoError.StatusCode)
-			fmt.Println(iikoError.CorrelationID)
-			fmt.Println(iikoError.ErrorDescription)
-			fmt.Println(iikoError.ErrorField)
-			return
-		} else {
-			log.Fatalln(err)
-		}
-	}
+ // make request to iikoCloud API: /api/1/organizations
+ res, err := client.Organizations(&iiko.OrganizationsRequest{ReturnAdditionalInfo: true})
+ if err != nil {
+  // Check if the error is IIKO API Error.
+  if iikoError, ok := err.(*iiko.ErrorResponse); ok {
+   fmt.Println(iikoError.StatusCode)
+   fmt.Println(iikoError.CorrelationID)
+   fmt.Println(iikoError.ErrorDescription)
+   fmt.Println(iikoError.ErrorField)
+   return
+  } else {
+   log.Fatalln(err)
+  }
+ }
 
-	// Now we can work with IIKO response.
-	for _, organization := range res.Organizations {
-		fmt.Println(organization.ID, organization.Country, organization.RestaurantAddress)
-	}
+ // Now we can work with IIKO response.
+ for _, organization := range res.Organizations {
+  fmt.Println(organization.ID, organization.Country, organization.RestaurantAddress)
+ }
 }
 ```
+
 ### How to contribute
+
 _In the instructions below you should replace **method_name** or **MethodName** by actual method name that you are writing._
+
 1. Choose a method from [feature matrix](#feature-matrix) that is not implemented yet.
 2. Create file **method_name.go** with this template:
+
 ```golang
 package iiko
 
@@ -70,18 +77,21 @@ type MethodNameResponse struct{}
 //
 // iiko API: /api/1/method_name
 func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodNameResponse, error) {
-	var response MethodNameResponse
+ var response MethodNameResponse
 
-	if err := c.post(false, "/api/1/method_name", req, &response, opts...); err != nil {
-		return nil, err
-	}
+ if err := c.post(false, "/api/1/method_name", req, &response, opts...); err != nil {
+  return nil, err
+ }
 
-	return &response, nil
+ return &response, nil
 }
 ```
+
 3. Put all required types and functions in this one file.
 4. Create pull request.
+
 #### Feature matrix
+
 - [x] /access_token
 - [x] /organizations
 - [x] /cancel_causes
@@ -99,7 +109,7 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [x] /tips_types
 - [x] /cities
 - [ ] /streets/by_city
-- [ ] /deliveries/create
+- [x] /deliveries/create
 - [ ] /deliveries/update_order_problem
 - [ ] /deliveries/update_order_delivery_status
 - [ ] /deliveries/update_order_courier
@@ -130,7 +140,7 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [ ] /employees/couriers/active_location/by_terminal
 - [ ] /employees/couriers/active_location
 - [ ] /marketing_sources
-- [ ] /order/create
+- [x] /order/create
 - [ ] /order/by_id
 - [ ] /order/by_table
 - [ ] /order/add_items
@@ -142,8 +152,8 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [ ] /reserve/restaurant_sections_workload
 - [ ] /reserve/create
 - [ ] /reserve/status_by_id
-- [ ] /webhooks/settings
-- [ ] /webhooks/update_settings
+- [x] /webhooks/settings
+- [x] /webhooks/update_settings
 - [ ] /loyalty/iiko/get_customer
 - [ ] /loyalty/iiko/calculate_checkin
 - [ ] /loyalty/iiko/get_manual_conditions
@@ -151,3 +161,7 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [ ] /regions
 - [x] /loyalty/iiko/customer/info
 - [x] /loyalty/iiko/customer/card/add
+- [x] /loyalty/iiko/delete_customers
+- [x] /loyalty/iiko/restore_customers
+- [x] /menu
+- [x] /menu/by_id

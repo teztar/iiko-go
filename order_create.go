@@ -410,11 +410,11 @@ type DiscountInfo struct {
 	Discounts []OrderDiscount `json:"discounts"`
 }
 
-// OrderCreate ...
+// OrderCreate Create a new order
 //
 // iiko API: /api/1/order/create
-func (c *Client) OrderCreate(req *OrderCreateResponse, opts ...Option) (*OrderCreateRequest, error) {
-	var response OrderCreateRequest
+func (c *Client) OrderCreate(req *OrderCreateRequest, opts ...Option) (*OrderCreateResponse, error) {
+	var response OrderCreateResponse
 
 	if err := c.post(true, "/api/1/order/create", req, &response, opts...); err != nil {
 		return nil, err
