@@ -122,7 +122,7 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [ ] /deliveries/change_payments
 - [ ] /deliveries/change_comment
 - [ ] /deliveries/print_delivery_bill
-- [ ] /deliveries/by_id
+- [x] /deliveries/by_id
 - [ ] /deliveries/by_delivery_date_and_status
 - [ ] /deliveries/by_revision
 - [ ] /deliveries/by_delivery_date_and_phone

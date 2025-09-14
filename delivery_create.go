@@ -1,8 +1,9 @@
 package iiko
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+)
 
-// DeliveryCreateRequest represents the request structure for delivery creation
 type DeliveryCreateRequest struct {
 	// Organization ID
 	OrganizationId uuid.UUID `json:"organizationId"`
@@ -11,11 +12,10 @@ type DeliveryCreateRequest struct {
 	// Create order settings
 	CreateOrderSettings CreateOrderSettings `json:"createOrderSettings"`
 	// Order information
-	Order DeliveryOrder `json:"order"`
+	Order CreateDeliveryOrderSettings `json:"order"`
 }
 
-// DeliveryOrder represents order information for delivery creation
-type DeliveryOrder struct {
+type CreateDeliveryOrderSettings struct {
 	// Menu ID (nullable)
 	MenuId *string `json:"menuId"`
 	// Price category ID
@@ -70,6 +70,15 @@ type DeliveryOrder struct {
 	ExternalData []DeliveryExternalData `json:"externalData"`
 }
 
+type DeliveryCreateResponse struct {
+	// Correlation ID
+	CorrelationId uuid.UUID `json:"correlationId"`
+	// Order information
+	OrderInfo DeliveryOrderInfo `json:"orderInfo"`
+}
+
+// Common delivery types
+
 // DeliveryOrderPoint represents delivery point for order
 type DeliveryOrderPoint struct {
 	// Coordinates
@@ -95,7 +104,7 @@ type DeliveryAddress struct {
 	// Address type
 	Type string `json:"type"`
 	Line1 string `json:"line1"`
-	Street interface{} `json:"street"`
+	Street *DeliveryStreet `json:"street"`
 	House string `json:"house"`
 	Building *string `json:"building"`
 	Flat *string `json:"flat"`
@@ -103,6 +112,24 @@ type DeliveryAddress struct {
 	Floor *string `json:"floor"`
 	Doorphone *string `json:"doorphone"`
 	RegionID *string `json:"regionId"`
+}
+
+// DeliveryStreet represents street information
+type DeliveryStreet struct {
+	// ID
+	ID uuid.UUID `json:"id"`
+	// Name
+	Name string `json:"name"`
+	// City
+	City *DeliveryCity `json:"city,omitempty"`
+}
+
+// DeliveryCity represents city information
+type DeliveryCity struct {
+	// ID
+	ID uuid.UUID `json:"id"`
+	// Name
+	Name string `json:"name"`
 }
 
 // DeliveryOrderItem represents an order item for delivery
@@ -185,10 +212,32 @@ type DeliveryLoyaltyCard struct {
 	Track string `json:"track"`
 }
 
-// DeliveryDiscount represents discount for delivery
+// DeliveryDiscount represents delivery discount
 type DeliveryDiscount struct {
 	// Discount type
-	Type string `json:"type"`
+	DiscountType *DeliveryDiscountType `json:"discountType,omitempty"`
+	// Sum
+	Sum float64 `json:"sum"`
+	// Selective positions
+	SelectivePositions []uuid.UUID `json:"selectivePositions"`
+	// Selective positions with sum
+	SelectivePositionsWithSum []DeliverySelectivePositionWithSum `json:"selectivePositionsWithSum"`
+}
+
+// DeliveryDiscountType represents delivery discount type
+type DeliveryDiscountType struct {
+	// ID
+	ID uuid.UUID `json:"id"`
+	// Name
+	Name string `json:"name"`
+}
+
+// DeliverySelectivePositionWithSum represents selective position with sum
+type DeliverySelectivePositionWithSum struct {
+	// Position ID
+	PositionID uuid.UUID `json:"positionId"`
+	// Sum
+	Sum float64 `json:"sum"`
 }
 
 // DeliveryDiscountsInfo represents discounts information for delivery
@@ -229,14 +278,6 @@ type DeliveryExternalData struct {
 	Value string `json:"value"`
 	// Is public flag
 	IsPublic bool `json:"isPublic"`
-}
-
-// DeliveryCreateResponse represents the response structure for delivery creation
-type DeliveryCreateResponse struct {
-	// Correlation ID
-	CorrelationId uuid.UUID `json:"correlationId"`
-	// Order information
-	OrderInfo OrderInfo `json:"orderInfo"`
 }
 
 // DeliveryCreate Create a new delivery order
