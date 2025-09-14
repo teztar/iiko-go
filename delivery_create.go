@@ -121,7 +121,7 @@ type DeliveryStreet struct {
 	// Name
 	Name string `json:"name"`
 	// City
-	City *DeliveryCity `json:"city,omitempty"`
+	City *string `json:"city"`
 }
 
 // DeliveryCity represents city information
