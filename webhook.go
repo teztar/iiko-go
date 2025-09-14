@@ -32,32 +32,38 @@ type WebhookHandlerFunc func(event *WebhookEvent) error
 
 // WebhookHandler represents a webhook event handler function
 type WebhookHandler struct {
-	name  string
+	name   string
 	handle WebhookHandlerFunc
 }
 
 // WebhookServer represents a server for handling webhooks
 type WebhookServer struct {
 	handlers map[WebhookEventType][]WebhookHandler
+	secret   string
 }
 
 // NewWebhookServer creates a new webhook server
-func NewWebhookServer() *WebhookServer {
+func NewWebhookServer(secret string) *WebhookServer {
 	return &WebhookServer{
 		handlers: make(map[WebhookEventType][]WebhookHandler),
+		secret:   secret,
 	}
 }
 
 // RegisterHandler registers a webhook event handler
 func (s *WebhookServer) RegisterHandler(eventType WebhookEventType, handlerName string, handler WebhookHandlerFunc) {
 	s.handlers[eventType] = append(s.handlers[eventType], WebhookHandler{
-		name:  handlerName,
+		name:   handlerName,
 		handle: handler,
 	})
 }
 
 // HandleEvent processes a webhook event using registered handlers
-func (s *WebhookServer) HandleEvent(event *WebhookEvent) error {
+func (s *WebhookServer) HandleEvent(event *WebhookEvent, secret string) error {
+	if s.secret != secret {
+		return fmt.Errorf("invalid secret")
+	}
+
 	handlers, exists := s.handlers[event.EventType]
 	if !exists {
 		return fmt.Errorf("no handlers registered for event type: %s", event.EventType)
