@@ -2,6 +2,7 @@ package iiko
 
 import (
 	"encoding/json"
+	"strings"
 	"fmt"
 	"time"
 
@@ -22,10 +23,34 @@ const (
 type WebhookEvent struct {
 	// Event Type of the webhook event
 	EventType      WebhookEventType `json:"eventType"`
-	EventTime      time.Time        `json:"eventTime"`
+	EventTime      EventTime        `json:"eventTime"`
 	OrganizationID uuid.UUID        `json:"organizationId"`
 	CorrelationID  uuid.UUID        `json:"correlationId"`
 	EventInfo      json.RawMessage  `json:"eventInfo"`
+}
+
+// EventTime кастомный тип для поддержки разных форматов времени
+type EventTime struct {
+	time.Time
+}
+
+func (et *EventTime) UnmarshalJSON(data []byte) error {
+	s := string(data)
+	s = strings.Trim(s, `"`) // remove quotes
+	// parse RFC3339 format first for compatibility
+	t, err := time.Parse(time.RFC3339, s)
+	if err == nil {
+		et.Time = t
+		return nil
+	}
+	// iiko uses "2006-01-02 15:04:05.999" format that is not RFC3339
+	t, err = time.Parse("2006-01-02 15:04:05.999", s)
+	if err == nil {
+		et.Time = t
+		return nil
+	}
+
+	return fmt.Errorf("cannot parse eventTime: %s", s)
 }
 
 type WebhookHandlerFunc func(event *WebhookEvent) error
