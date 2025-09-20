@@ -141,7 +141,7 @@ type DeliveryOrderItem struct {
 	// Item type
 	Type string `json:"type"`
 	// Item amount
-	Amount int `json:"amount"`
+	Amount float64 `json:"amount"`
 	// Product size ID
 	ProductSizeId *uuid.UUID `json:"productSizeId"`
 	// Combo information
