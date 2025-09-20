@@ -180,7 +180,7 @@ const (
 	DeliveryStatusReadyForCooking  DeliveryStatus = "ReadyForCooking"
 	DeliveryStatusCookingStarted   DeliveryStatus = "CookingStarted"
 	DeliveryStatusCookingCompleted DeliveryStatus = "CookingCompleted"
-	DeliveryStatusWaitCourier      DeliveryStatus = "WaitCourier"
+	DeliveryStatusWaiting          DeliveryStatus = "Waiting"
 	DeliveryStatusOnWay            DeliveryStatus = "OnWay"
 	DeliveryStatusDelivered        DeliveryStatus = "Delivered"
 	DeliveryStatusClosed           DeliveryStatus = "Closed"
