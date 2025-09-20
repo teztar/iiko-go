@@ -279,7 +279,7 @@ type DeliveryItem struct {
 	// Deleted information
 	Deleted *DeliveryItemDeleted `json:"deleted,omitempty"`
 	// Amount
-	Amount int `json:"amount"`
+	Amount float32 `json:"amount"`
 	// Comment
 	Comment string `json:"comment"`
 	// When printed
