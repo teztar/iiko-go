@@ -1,8 +1,6 @@
 package iiko
 
 import (
-	"time"
-
 	"github.com/google/uuid"
 )
 
@@ -74,19 +72,19 @@ type DeliveryOrder struct {
 	// Courier information.
 	CourierInfo *DeliveryCourierInfo `json:"courierInfo,omitempty"`
 	// Complete before time.
-	CompleteBefore *time.Time `json:"completeBefore,omitempty"`
+	CompleteBefore *EventTime `json:"completeBefore,omitempty"`
 	// Order creation date.
-	WhenCreated time.Time `json:"whenCreated"`
+	WhenCreated EventTime `json:"whenCreated"`
 	// When confirmed.
-	WhenConfirmed *time.Time `json:"whenConfirmed,omitempty"`
+	WhenConfirmed *EventTime `json:"whenConfirmed,omitempty"`
 	// When printed.
-	WhenPrinted *time.Time `json:"whenPrinted,omitempty"`
+	WhenPrinted *EventTime `json:"whenPrinted,omitempty"`
 	// When cooking completed.
-	WhenCookingCompleted *time.Time `json:"whenCookingCompleted,omitempty"`
+	WhenCookingCompleted *EventTime `json:"whenCookingCompleted,omitempty"`
 	// When sent.
-	WhenSended *time.Time `json:"whenSended,omitempty"`
+	WhenSended *EventTime `json:"whenSended,omitempty"`
 	// When delivered.
-	WhenDelivered *time.Time `json:"whenDelivered,omitempty"`
+	WhenDelivered *EventTime `json:"whenDelivered,omitempty"`
 	// Comment.
 	Comment string `json:"comment"`
 	// Problem information.
@@ -100,13 +98,13 @@ type DeliveryOrder struct {
 	// Index in courier route.
 	IndexInCourierRoute int `json:"indexInCourierRoute"`
 	// Cooking start time.
-	CookingStartTime *time.Time `json:"cookingStartTime,omitempty"`
+	CookingStartTime *EventTime `json:"cookingStartTime,omitempty"`
 	// Is deleted flag.
 	IsDeleted bool `json:"isDeleted"`
 	// When received by API.
-	WhenReceivedByApi *time.Time `json:"whenReceivedByApi,omitempty"`
+	WhenReceivedByApi *EventTime `json:"whenReceivedByApi,omitempty"`
 	// When received from front.
-	WhenReceivedFromFront *time.Time `json:"whenReceivedFromFront,omitempty"`
+	WhenReceivedFromFront *EventTime `json:"whenReceivedFromFront,omitempty"`
 	// Moved from delivery ID.
 	MovedFromDeliveryID *uuid.UUID `json:"movedFromDeliveryId,omitempty"`
 	// Moved from terminal group ID.
@@ -126,13 +124,13 @@ type DeliveryOrder struct {
 	// Delivery zone.
 	DeliveryZone string `json:"deliveryZone"`
 	// Locked at time.
-	LockedAt *time.Time `json:"lockedAt,omitempty"`
+	LockedAt *EventTime `json:"lockedAt,omitempty"`
 	// Estimated time.
-	EstimatedTime *time.Time `json:"estimatedTime,omitempty"`
+	EstimatedTime *EventTime `json:"estimatedTime,omitempty"`
 	// Is ASAP flag.
 	IsAsap bool `json:"isAsap"`
 	// When packed.
-	WhenPacked *time.Time `json:"whenPacked,omitempty"`
+	WhenPacked *EventTime `json:"whenPacked,omitempty"`
 	// Price category.
 	PriceCategory *DeliveryPriceCategory `json:"priceCategory,omitempty"`
 	// Order sum.
@@ -142,9 +140,9 @@ type DeliveryOrder struct {
 	// Source key.
 	SourceKey string `json:"sourceKey"`
 	// Invoice printing time.
-	WhenBillPrinted *time.Time `json:"whenBillPrinted,omitempty"`
+	WhenBillPrinted *EventTime `json:"whenBillPrinted,omitempty"`
 	// Delivery closing time.
-	WhenClosed *time.Time `json:"whenClosed,omitempty"`
+	WhenClosed *EventTime `json:"whenClosed,omitempty"`
 	// Concept.
 	Conception Conception `json:"conception"`
 	// Guests information.
@@ -177,16 +175,16 @@ type DeliveryOrder struct {
 type DeliveryStatus string
 
 const (
-	DeliveryStatusUnconfirmed       DeliveryStatus = "Unconfirmed"
-	DeliveryStatusWaitCooking       DeliveryStatus = "WaitCooking"
-	DeliveryStatusReadyForCooking   DeliveryStatus = "ReadyForCooking"
-	DeliveryStatusCookingStarted    DeliveryStatus = "CookingStarted"
-	DeliveryStatusCookingCompleted  DeliveryStatus = "CookingCompleted"
-	DeliveryStatusWaitCourier       DeliveryStatus = "WaitCourier"
-	DeliveryStatusOnWay             DeliveryStatus = "OnWay"
-	DeliveryStatusDelivered         DeliveryStatus = "Delivered"
-	DeliveryStatusClosed            DeliveryStatus = "Closed"
-	DeliveryStatusCancelled         DeliveryStatus = "Cancelled"
+	DeliveryStatusUnconfirmed      DeliveryStatus = "Unconfirmed"
+	DeliveryStatusWaitCooking      DeliveryStatus = "WaitCooking"
+	DeliveryStatusReadyForCooking  DeliveryStatus = "ReadyForCooking"
+	DeliveryStatusCookingStarted   DeliveryStatus = "CookingStarted"
+	DeliveryStatusCookingCompleted DeliveryStatus = "CookingCompleted"
+	DeliveryStatusWaitCourier      DeliveryStatus = "WaitCourier"
+	DeliveryStatusOnWay            DeliveryStatus = "OnWay"
+	DeliveryStatusDelivered        DeliveryStatus = "Delivered"
+	DeliveryStatusClosed           DeliveryStatus = "Closed"
+	DeliveryStatusCancelled        DeliveryStatus = "Cancelled"
 )
 
 // DeliveryCustomer represents delivery customer
@@ -197,7 +195,7 @@ type DeliveryCustomer struct {
 // DeliveryCancelInfo represents cancel information
 type DeliveryCancelInfo struct {
 	// When cancelled
-	WhenCancelled time.Time `json:"whenCancelled"`
+	WhenCancelled EventTime `json:"whenCancelled"`
 	// Cancel cause
 	Cause *DeliveryCancelCause `json:"cause,omitempty"`
 	// Comment
@@ -285,7 +283,7 @@ type DeliveryItem struct {
 	// Comment
 	Comment string `json:"comment"`
 	// When printed
-	WhenPrinted *time.Time `json:"whenPrinted,omitempty"`
+	WhenPrinted *EventTime `json:"whenPrinted,omitempty"`
 	// Size
 	Size *DeliverySize `json:"size,omitempty"`
 	// Combo information

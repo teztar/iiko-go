@@ -36,7 +36,11 @@ type EventTime struct {
 
 func (et *EventTime) UnmarshalJSON(data []byte) error {
 	s := string(data)
-	s = strings.Trim(s, `"`) // remove quotes
+	s = strings.Trim(s, `"`) // remove 
+	if s == "null" || s == "" {
+		et.Time = time.Time{}
+		return nil
+	}
 	// parse RFC3339 format first for compatibility
 	t, err := time.Parse(time.RFC3339, s)
 	if err == nil {
