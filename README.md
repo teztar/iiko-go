@@ -163,5 +163,8 @@ func (c *Client) MethodName(req *MethodNameRequest, opts ...Option) (*MethodName
 - [x] /loyalty/iiko/customer/card/add
 - [x] /loyalty/iiko/delete_customers
 - [x] /loyalty/iiko/restore_customers
+- [x] /loyalty/iiko/customer_category
+- [x] /loyalty/iiko/customer_category/add
+- [x] /loyalty/iiko/customer_category/remove
 - [x] /menu
 - [x] /menu/by_id
