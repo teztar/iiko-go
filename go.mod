@@ -1,4 +1,4 @@
-module github.com/wollzy/iiko-go
+module github.com/teztar/iiko-go
 
 go 1.18
 
