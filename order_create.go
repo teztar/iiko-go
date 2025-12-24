@@ -146,6 +146,20 @@ type CreateOrderSettings struct {
 	TransportToFrontTimeout int `json:"transportToFrontTimeout"`
 }
 
+/*
+Customer.
+
+'Regular' customer:
+
+	can be used only if a customer agrees to take part in the stores loyalty programs
+	customer details will be added (updated) to the stores customer database
+	benefits (accumulation of rewards, etc.) of active loyalty programs will be made available to the customer
+
+'One-time' customer:
+
+	should be used if a customer does not agree to take part in the stores loyalty programs or an aggregator (external system) does not provide customer details
+	customer details will NOT be added to the stores customer database and will be used ONLY to complete the current order
+*/
 type Customer struct {
 	// Existing customer ID in RMS.
 	// If null - the phone number is searched in database, otherwise the new customer is created in RMS.
@@ -169,6 +183,8 @@ type Customer struct {
 	InBlacklist bool `json:"inBlacklist"`
 	// Reason why client was added to blacklist.
 	BlacklistReason string `json:"blacklistReason"`
+	// regular or one-time
+	Type string `json:"type"`
 }
 
 type Gender string
