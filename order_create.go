@@ -163,26 +163,26 @@ Customer.
 type Customer struct {
 	// Existing customer ID in RMS.
 	// If null - the phone number is searched in database, otherwise the new customer is created in RMS.
-	ID uuid.UUID `json:"id"`
+	ID uuid.UUID `json:"id,omitempty"`
 	// Name of customer.
 	// Required for new customers (i.e. if "id" == null) Not required if "id" specified.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// Last name.
-	Surname string `json:"surname"`
+	Surname string `json:"surname,omitempty"`
 	// Comment.
-	Comment string `json:"comment"`
+	Comment string `json:"comment,omitempty"`
 	// Date of birth.
-	Birthdate time.Time `json:"birthdate"`
+	Birthdate time.Time `json:"birthdate,omitempty"`
 	// Email.
-	Email string `json:"email"`
+	Email string `json:"email,omitempty"`
 	// Whether customer receives order status notification messages.
-	ShouldReceiveOrderStatusNotifications bool `json:"shouldReceiveOrderStatusNotifications"`
+	ShouldReceiveOrderStatusNotifications bool `json:"shouldReceiveOrderStatusNotifications,omitempty"`
 	// Gender.
-	Gender Gender `json:"gender"`
+	Gender Gender `json:"gender,omitempty"`
 	// Is client in blacklist.
-	InBlacklist bool `json:"inBlacklist"`
+	InBlacklist bool `json:"inBlacklist,omitempty"`
 	// Reason why client was added to blacklist.
-	BlacklistReason string `json:"blacklistReason"`
+	BlacklistReason string `json:"blacklistReason,omitempty"`
 	// regular or one-time
 	Type string `json:"type"`
 }
