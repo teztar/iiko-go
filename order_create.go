@@ -163,7 +163,7 @@ Customer.
 type Customer struct {
 	// Existing customer ID in RMS.
 	// If null - the phone number is searched in database, otherwise the new customer is created in RMS.
-	ID uuid.UUID `json:"id,omitempty"`
+	ID uuid.UUID `json:"id,omitzero"`
 	// Name of customer.
 	// Required for new customers (i.e. if "id" == null) Not required if "id" specified.
 	Name string `json:"name,omitempty"`
@@ -172,7 +172,7 @@ type Customer struct {
 	// Comment.
 	Comment string `json:"comment,omitempty"`
 	// Date of birth.
-	Birthdate time.Time `json:"birthdate,omitempty"`
+	Birthdate time.Time `json:"birthdate,omitzero"`
 	// Email.
 	Email string `json:"email,omitempty"`
 	// Whether customer receives order status notification messages.
