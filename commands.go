@@ -18,7 +18,11 @@ const (
 )
 
 type CommandsStatusResponse struct {
-	State CommandsStatusType `json:"state"`
+	State            CommandsStatusType `json:"state"`
+	CorrelationID    uuid.UUID          `json:"correlationId"`
+	ErrorDescription string             `json:"errorDescription"`
+	Error            string             `json:"error"`
+	OrderInfo        OrderInfo          `json:"orderInfo"`
 }
 
 // Get status of command.
