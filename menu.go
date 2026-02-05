@@ -325,7 +325,7 @@ type ModifierItem struct {
 	// Nutrition per hundred grams
 	NutritionPerHundredGrams []Nutrition `json:"nutritionPerHundredGrams"`
 	// Portion weight in grams (string in JSON)
-	PortionWeightGrams string `json:"portionWeightGrams"`
+	PortionWeightGrams float64 `json:"portionWeightGrams"`
 	// Tags
 	Tags []Tag `json:"tags"`
 	// Labels
@@ -393,7 +393,7 @@ type ItemSize struct {
 	// Is default size flag
 	IsDefault bool `json:"isDefault"`
 	// Portion weight in grams (string in JSON)
-	PortionWeightGrams string `json:"portionWeightGrams"`
+	PortionWeightGrams float64 `json:"portionWeightGrams"`
 	// Item modifier groups
 	ItemModifierGroups []ItemModifierGroup `json:"itemModifierGroups"`
 	// Size ID
