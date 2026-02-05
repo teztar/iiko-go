@@ -323,7 +323,7 @@ type ModifierItem struct {
 	// Allergen groups
 	AllergenGroups []AllergenGroup `json:"allergenGroups"`
 	// Nutrition per hundred grams
-	NutritionPerHundredGrams []Nutrition `json:"nutritionPerHundredGrams"`
+	NutritionPerHundredGrams Nutrition `json:"nutritionPerHundredGrams"`
 	// Portion weight in grams (string in JSON)
 	PortionWeightGrams float64 `json:"portionWeightGrams"`
 	// Tags
@@ -399,7 +399,7 @@ type ItemSize struct {
 	// Size ID
 	SizeId uuid.UUID `json:"sizeId"`
 	// Nutrition per hundred grams
-	NutritionPerHundredGrams []Nutrition `json:"nutritionPerHundredGrams"`
+	NutritionPerHundredGrams Nutrition `json:"nutritionPerHundredGrams"`
 	// Prices
 	Prices []MenuPriceWithTax `json:"prices"`
 	// Nutritions
