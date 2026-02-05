@@ -59,7 +59,7 @@ type MenuPriceWithTax struct {
 	// Organization IDs
 	Organizations []string `json:"organizations"`
 	// Price value
-	Price string `json:"price"`
+	Price float64 `json:"price"`
 	// Tax category ID
 	TaxCategoryId uuid.UUID `json:"taxCategoryId"`
 }
