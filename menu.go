@@ -1,6 +1,8 @@
 package iiko
 
 import (
+	"encoding/json"
+
 	"github.com/google/uuid"
 )
 
@@ -300,6 +302,29 @@ type Restrictions struct {
 	HideIfDefaultQuantity bool `json:"hideIfDefaultQuantity"`
 }
 
+// RestrictionsArray is a custom type that can unmarshal restrictions as either an object or an array
+type RestrictionsArray []Restrictions
+
+// UnmarshalJSON implements json.Unmarshaler to handle both object and array formats
+func (ra *RestrictionsArray) UnmarshalJSON(data []byte) error {
+	// Try to unmarshal as array first
+	var arr []Restrictions
+	if err := json.Unmarshal(data, &arr); err == nil {
+		*ra = arr
+		return nil
+	}
+
+	// If that fails, try to unmarshal as a single object
+	var obj Restrictions
+	if err := json.Unmarshal(data, &obj); err == nil {
+		*ra = []Restrictions{obj}
+		return nil
+	}
+
+	// If both fail, return the array error (more descriptive)
+	return json.Unmarshal(data, &arr)
+}
+
 // TaxCategory represents tax category information
 type TaxCategory struct {
 	// Tax category ID
@@ -318,8 +343,8 @@ type ModifierItem struct {
 	Name string `json:"name"`
 	// Description
 	Description string `json:"description"`
-	// Quantity restrictions (array in JSON)
-	Restrictions []Restrictions `json:"restrictions"`
+	// Quantity restrictions (can be object or array in JSON)
+	Restrictions RestrictionsArray `json:"restrictions"`
 	// Allergen groups
 	AllergenGroups []AllergenGroup `json:"allergenGroups"`
 	// Nutrition per hundred grams
