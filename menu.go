@@ -59,11 +59,9 @@ type MenuPrice struct {
 // MenuPriceWithTax represents price information with organizations and tax category for menu
 type MenuPriceWithTax struct {
 	// Organization IDs
-	Organizations []string `json:"organizations"`
+	OrganizationId string `json:"organizationId"`
 	// Price value
-	Price float64 `json:"price"`
-	// Tax category ID
-	TaxCategoryId uuid.UUID `json:"taxCategoryId"`
+	Price *float64 `json:"price"`
 }
 
 // AllergenGroup represents allergen group information
