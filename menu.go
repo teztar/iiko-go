@@ -137,7 +137,7 @@ type CustomerTagGroup struct {
 // CustomerTagGroupSelection represents customer tag group selection
 type CustomerTagGroupSelection struct {
 	// Customer tag group ID
-	CustomerTagGroupId uuid.UUID `json:"customerTagGroupId"`
+	CustomerTagGroupId string `json:"customerTagGroupId"`
 	// Selected tag IDs
 	SelectedTagIds []*string `json:"selectedTagIds"` // Can contain null
 }
@@ -213,9 +213,9 @@ type ComboSize struct {
 // ComboItemSize represents combo item size information
 type ComboItemSize struct {
 	// Combo size ID
-	ComboSizeId uuid.UUID `json:"comboSizeId"`
+	ComboSizeId string `json:"comboSizeId"`
 	// Size ID
-	SizeId uuid.UUID `json:"sizeId"`
+	SizeId string `json:"sizeId"`
 	// Name
 	Name string `json:"name"`
 	// Short name
@@ -396,7 +396,7 @@ type ItemModifierGroup struct {
 	// Can be divided flag (string in JSON)
 	CanBeDivided interface{} `json:"canBeDivided"` // Can be bool or string "false"
 	// Item group ID
-	ItemGroupId uuid.UUID `json:"itemGroupId"`
+	ItemGroupId string `json:"itemGroupId"`
 	// Is hidden flag
 	IsHidden bool `json:"isHidden"`
 	// Child modifiers have min max restrictions flag
@@ -454,7 +454,7 @@ type MenuItem struct {
 	// Item ID
 	ItemId uuid.UUID `json:"itemId"`
 	// Modifier schema ID
-	ModifierSchemaId uuid.UUID `json:"modifierSchemaId"`
+	ModifierSchemaId string `json:"modifierSchemaId"`
 	// Tax category (array in JSON)
 	TaxCategory []TaxCategory `json:"taxCategory"`
 	// Modifier schema name
@@ -470,7 +470,7 @@ type MenuItem struct {
 	// Measure unit
 	MeasureUnit string `json:"measureUnit"`
 	// Product category ID
-	ProductCategoryId uuid.UUID `json:"productCategoryId"`
+	ProductCategoryId string `json:"productCategoryId"`
 	// Customer tag groups
 	CustomerTagGroups []CustomerTagGroupSelection `json:"customerTagGroups"`
 	// Payment subject
@@ -502,11 +502,11 @@ type ItemCategory struct {
 	// Header image URL
 	HeaderImageUrl string `json:"headerImageUrl"`
 	// iiko group ID
-	IikoGroupId uuid.UUID `json:"iikoGroupId"`
+	IikoGroupId string `json:"iikoGroupId"`
 	// Menu items
 	Items []MenuItem `json:"items"`
 	// Schedule ID
-	ScheduleId uuid.UUID `json:"scheduleId"`
+	ScheduleId string `json:"scheduleId"`
 	// Schedule name
 	ScheduleName string `json:"scheduleName"`
 	// Schedules
