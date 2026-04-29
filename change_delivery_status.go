@@ -10,10 +10,10 @@ type UpdateOrderDeliveryStatusRequest struct {
 	OrganizationId uuid.UUID `json:"organizationId"`
 	// Order ID [required]
 	OrderId uuid.UUID `json:"orderId"`
-	// Delivery date [required]
-	DeliveryDate string `json:"deliveryDate"`
+	// Delivery date [optional]
+	DeliveryDate string `json:"deliveryDate,omitempty"`
 	// Delivery status [required]
-	Status DeliveryStatus `json:"status"`
+	Status DeliveryStatus `json:"deliveryStatus"`
 }
 
 type UpdateOrderDeliveryStatusResponse struct {
