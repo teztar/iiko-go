@@ -14,6 +14,11 @@ type Client struct {
 	baseURL  string
 	apiLogin string
 
+	// appId and clientSecret belong to the new iiko authorization scheme
+	// (mandatory from 2026-06-01). Empty => fall back to old apiLogin-only.
+	appId        string
+	clientSecret string
+
 	// tokenMu guards token against the data race between refreshTokenByInterval
 	// (writer) and request builders (readers).
 	tokenMu sync.RWMutex
@@ -22,6 +27,18 @@ type Client struct {
 	httpClient           *http.Client
 	timeout              time.Duration
 	refreshTokenInterval time.Duration
+}
+
+// ClientOption customizes a Client at construction time.
+type ClientOption func(*Client)
+
+// WithApp enables the new iiko authorization scheme by attaching the
+// integration's appId and clientSecret to every access_token request.
+func WithApp(appId, clientSecret string) ClientOption {
+	return func(c *Client) {
+		c.appId = appId
+		c.clientSecret = clientSecret
+	}
 }
 
 // SetTimeout sets default Timeout header for all requests. By default 15 seconds.
@@ -57,7 +74,11 @@ func (c *Client) setToken(token string) {
 // On any error it keeps the previous token untouched so in-flight requests
 // keep working until the next successful refresh.
 func (c *Client) refreshToken() error {
-	resp, err := c.accessToken(&AccessTokenRequest{ApiLogin: c.apiLogin})
+	resp, err := c.accessToken(&AccessTokenRequest{
+		ApiLogin:     c.apiLogin,
+		AppId:        c.appId,
+		ClientSecret: c.clientSecret,
+	})
 	if err != nil {
 		return err
 	}
@@ -91,7 +112,7 @@ func (c *Client) Close() {
 	close(c.quit)
 }
 
-func NewClient(apiLogin string) (*Client, error) {
+func NewClient(apiLogin string, opts ...ClientOption) (*Client, error) {
 	client := &Client{
 		baseURL:              BaseURL,
 		httpClient:           http.DefaultClient,
@@ -99,6 +120,10 @@ func NewClient(apiLogin string) (*Client, error) {
 		timeout:              DefaultTimeout,
 		refreshTokenInterval: DefaultRefreshTokenInterval,
 		quit:                 make(chan struct{}),
+	}
+
+	for _, opt := range opts {
+		opt(client)
 	}
 
 	if err := client.refreshToken(); err != nil {

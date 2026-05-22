@@ -5,8 +5,16 @@ import (
 )
 
 type AccessTokenRequest struct {
-	// API login. It is set in iikoWeb [requried]
+	// API login. It is set in iikoWeb [required]
 	ApiLogin string `json:"apiLogin"`
+
+	// AppId and ClientSecret are part of the new iiko authorization scheme
+	// (mandatory from 2026-06-01), obtained when registering the integration
+	// on the iiko developer portal. The existing ApiLogin stays the same.
+	// Both are optional for backward compatibility; when empty they are
+	// omitted from the request body.
+	AppId        string `json:"appId,omitempty"`
+	ClientSecret string `json:"clientSecret,omitempty"`
 }
 
 type AccessTokenResponse struct {
