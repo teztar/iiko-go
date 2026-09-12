@@ -4,7 +4,21 @@ import (
 	"github.com/google/uuid"
 )
 
-type ProductCategoryDiscount struct{}
+// ProductCategoryDiscount — скидка на отдельную категорию меню.
+//
+// Раньше структура была пустой, и весь разбор категорийных скидок терялся:
+// json.Unmarshal молча складывал в неё пустые объекты. Именно эти поля нужны,
+// чтобы показать акционную цену по категории — например «скидка на десерты».
+type ProductCategoryDiscount struct {
+	// Category ID in RMS. [required]
+	CategoryID uuid.UUID `json:"categoryId"`
+
+	// Category name. [required]
+	CategoryName string `json:"categoryName"`
+
+	// Discount rate for this category. [required]
+	Percent float64 `json:"percent"`
+}
 
 type Mode string
 
