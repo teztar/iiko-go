@@ -15,7 +15,8 @@ type Client struct {
 	apiLogin string
 
 	// appId and clientSecret belong to the new iiko authorization scheme
-	// (mandatory from 2026-06-01). Empty => fall back to old apiLogin-only.
+	// (/api/v2/access_token). Empty => fall back to old apiLogin-only
+	// /api/1/access_token.
 	appId        string
 	clientSecret string
 
@@ -32,8 +33,8 @@ type Client struct {
 // ClientOption customizes a Client at construction time.
 type ClientOption func(*Client)
 
-// WithApp enables the new iiko authorization scheme by attaching the
-// integration's appId and clientSecret to every access_token request.
+// WithApp enables the new iiko authorization scheme: tokens are requested from
+// /api/v2/access_token with the API key, appId and clientSecret.
 func WithApp(appId, clientSecret string) ClientOption {
 	return func(c *Client) {
 		c.appId = appId
@@ -74,11 +75,19 @@ func (c *Client) setToken(token string) {
 // On any error it keeps the previous token untouched so in-flight requests
 // keep working until the next successful refresh.
 func (c *Client) refreshToken() error {
-	resp, err := c.accessToken(&AccessTokenRequest{
-		ApiLogin:     c.apiLogin,
-		AppId:        c.appId,
-		ClientSecret: c.clientSecret,
-	})
+	var (
+		resp *AccessTokenResponse
+		err  error
+	)
+	if c.appId != "" && c.clientSecret != "" {
+		resp, err = c.accessTokenV2(&AccessTokenV2Request{
+			ApiKey:       c.apiLogin,
+			AppId:        c.appId,
+			ClientSecret: c.clientSecret,
+		})
+	} else {
+		resp, err = c.accessToken(&AccessTokenRequest{ApiLogin: c.apiLogin})
+	}
 	if err != nil {
 		return err
 	}
